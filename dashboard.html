@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="15">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Bell Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Smart Bell</h1>
+            <p>by Rijal and Jeyd</p>
+        </header>
+
+        <section class="card-grid">
+            <article class="card">
+                <div class="card-header">
+                    <i class='bx bxs-bell-ring bx-tada-hover icon'></i>
+                    <h2>Notifikasi Masuk</h2>
+                </div>
+                <div class="card-content">
+                    {% for notif in histori_bel %}
+                        <p>{{ notif }}</p>
+                    {% else %}
+                        <p>Belum ada tamu.</p>
+                    {% endfor %}
+                </div>
+            </article>
+            <article class="card">
+                <div class="card-header">
+                    <i class='bx bxs-send bx-tada-hover icon'></i>
+                    <h2>Riwayat Balasan</h2>
+                </div>
+                <div class="card-content">
+                    {% for respon in histori_respon %}
+                        <p>{{ respon }}</p>
+                    {% else %}
+                        <p>Belum ada respon dikirim.</p>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="card response-form">
+                <div class="card-header">
+                    <i class='bx bxs-joystick-button bx-tada-hover icon'></i>
+                    <h2>Kontrol Balasan</h2>
+                </div>
+                <div class="card-content">
+                    <form action="/send_response" method="post">
+                        <div class="btn-group">
+                            <button type="submit" name="response" value="1" class="btn btn-primary">Tunggu</button>
+                            <button type="submit" name="response" value="2" class="btn btn-secondary">Maaf, Pergi</button>
+                            <button type="submit" name="response" value="3" class="btn btn-success">Masuk!</button>
+                        </div>
+                        
+                        <div class="separator"></div>
+                        <div class="extra-controls">
+                            <button type="submit" name="response" value="4" class="btn btn-off">Matikan Lampu</button>
+                        </div>
+                        </form>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
